@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Users = require("./models/Users");
-const { transporter } = require("./mailer");
+const transporter = require("./mailer");
 
 // const db =
 // mongodb+srv://faizanmuzaffarshaikh:<db_password>@userforb2b.oyts2.mongodb.net/
