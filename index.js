@@ -6,8 +6,8 @@ const Users = require("./models/Users");
 // mongodb+srv://faizanmuzaffarshaikh:<db_password>@userforb2b.oyts2.mongodb.net/
 
 const mongodbOptions = {
-  user: "faizanmuzaffarshaikh",
-  pass: "bUBcGyuAoMfwZEKY",
+  user: process.env.MONGO_USER,
+  pass: process.env.MONGO_PASS,
   dbName: "users",
 };
 
@@ -21,10 +21,7 @@ app.post("/get-user", async (req, res) => {
 });
 
 async function init() {
-  await mongoose.connect(
-    "mongodb+srv://userforb2b.oyts2.mongodb.net/",
-    mongodbOptions
-  );
+  await mongoose.connect(process.env.MONGO_URI, mongodbOptions);
 
   app.listen(process.env.PORT, () => {
     console.log("server running on port:", process.env.PORT);
