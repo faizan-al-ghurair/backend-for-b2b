@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Users = require("./models/Users");
+const { transporter } = require("./mailer");
 
 // const db =
 // mongodb+srv://faizanmuzaffarshaikh:<db_password>@userforb2b.oyts2.mongodb.net/
@@ -15,6 +16,14 @@ const app = express();
 app.use(express.json());
 app.post("/get-user", async (req, res) => {
   await Users.create(req.body);
+
+  await transporter.sendMail({
+    from: "Faizan Shaikh<fshaikhapple@outlook.com>",
+    to: "faizanmuzaffarshaikh@gmail.com",
+    subject: "New user entery", // Subject line
+    text: JSON.stringify(req.body, null, 2), // html body
+  });
+
   return res.status(201).json({
     message: "success",
   });
@@ -28,4 +37,3 @@ async function init() {
   });
 }
 init().catch(console.error);
-// export default mongoose.connect(config.MONGO_URI, mongodbOptions);
